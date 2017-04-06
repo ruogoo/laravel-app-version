@@ -13,13 +13,17 @@ class AppVersionLaravelServiceProvider extends AbstractServiceProvider
 {
     public function configure()
     {
-        $this->publishes([
-            __DIR__ . '/../database/migrations/' => database_path('migrations'),
-        ], 'migrations');
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../database/migrations/' => database_path('migrations'),
+            ], 'migrations');
 
-        $this->publishes([
-            __DIR__ . '/../config/appversion.php' => config_path('appversion.php'),
-        ], 'config');
+            $this->publishes([
+                __DIR__ . '/../config/appversion.php' => config_path('appversion.php'),
+            ], 'config');
+
+            $this->mergeConfigFrom(__DIR__ . '/../config/appversion.php', 'appversion');
+        }
     }
 
     protected function registerRoute(array $config)
