@@ -9,7 +9,6 @@
 
 namespace HyanCat\AppVersion;
 
-use HyanCat\AppVersion\Models\AppVersion\AppVersion;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
