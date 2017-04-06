@@ -23,7 +23,7 @@ class CreateAppVersionsTable extends Migration
             $table->text('detail');                     // Update note.
             $table->string('url')->nullable();          // New app's url.
             $table->string('level')->nullable();        // Update notice level. eg: force, positive...
-            $table->json('options')->nullable();
+            $table->text('options')->nullable();
             $table->timestamps();
         });
     }
