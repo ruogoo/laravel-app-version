@@ -9,9 +9,12 @@
 
 return [
     'route' => [
-        'name' => 'app.version',
-        'path' => '/app/version',
-        'uses' => \HyanCat\AppVersion\AppVersionController::class . '@version',
+        'name'        => 'app.version',
+        'path'        => '/app/version',
+        'uses'        => \HyanCat\AppVersion\AppVersionController::class . '@version',
+        'middleware' => [
+            //
+        ],
     ],
-    'model' => \HyanCat\AppVersion\Models\AppVersion\AppVersion::class,
+    'model' => \HyanCat\AppVersion\Models\AppVersion::class,
 ];

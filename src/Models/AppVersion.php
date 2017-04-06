@@ -7,7 +7,7 @@
  * Copyright (C) HyanCat. All rights reserved.
  */
 
-namespace HyanCat\AppVersion\Models\AppVersion;
+namespace HyanCat\AppVersion\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

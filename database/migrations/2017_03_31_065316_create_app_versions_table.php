@@ -19,10 +19,10 @@ class CreateAppVersionsTable extends Migration
             $table->increments('id');
             $table->string('platform')->index();
             $table->string('version', 100);
-            $table->string('title', 100)->nullable();
-            $table->text('detail');
-            $table->string('url')->nullable();
-            $table->string('level')->nullable();
+            $table->string('title', 100)->nullable();   // Update title.
+            $table->text('detail');                     // Update note.
+            $table->string('url')->nullable();          // New app's url.
+            $table->string('level')->nullable();        // Update notice level. eg: force, positive...
             $table->json('options');
             $table->timestamps();
         });

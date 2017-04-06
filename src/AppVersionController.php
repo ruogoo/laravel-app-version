@@ -10,11 +10,19 @@
 namespace HyanCat\AppVersion;
 
 use HyanCat\AppVersion\Models\AppVersion\AppVersion;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 final class AppVersionController extends Controller
 {
+    protected $config;
+
+    public function __construct(Repository $config)
+    {
+        $this->config = $config;
+    }
+
     public function version(Request $request)
     {
         $platform   = $request->get('platform');
@@ -25,7 +33,8 @@ final class AppVersionController extends Controller
 
     private function _checkPlatformVersion($platform, $appVersion)
     {
-        $versions = AppVersion::where('platform', $platform)->get();
+        $model    = $this->config->get('appversion.model');
+        $versions = $model::where('platform', $platform)->get();
 
         return $this->_matchVersion($appVersion, $versions);
     }
