@@ -23,6 +23,10 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        }
+
         $this->configure();
         $config = $this->app['config']->get('appversion.route');
         $this->registerRoute($config);
