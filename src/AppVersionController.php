@@ -9,8 +9,10 @@
 
 namespace HyanCat\AppVersion;
 
+use HyanCat\AppVersion\Exceptions\ValidateException;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 final class AppVersionController extends Controller
@@ -24,10 +26,25 @@ final class AppVersionController extends Controller
 
     public function version(Request $request)
     {
-        $platform   = $request->get('platform');
-        $appVersion = $request->get('app_version');
+        $this->validate($request);
 
-        return $this->_checkPlatformVersion($platform, $appVersion);
+        $platform   = $request->get('platform');
+        $appVersion = $request->get('version');
+
+        $version = $this->_checkPlatformVersion($platform, $appVersion);
+
+        return $version ?: Response::create(null, 204);
+    }
+
+    private function validate(Request $request)
+    {
+        $validator = app('validator')->make($request->all(), [
+            'platform' => 'required',
+            'version'  => 'required',
+        ]);
+        if ($validator->fails()) {
+            throw new ValidateException();
+        }
     }
 
     private function _checkPlatformVersion($platform, $appVersion)
@@ -45,5 +62,7 @@ final class AppVersionController extends Controller
                 return $version;
             }
         }
+
+        return null;
     }
 }
