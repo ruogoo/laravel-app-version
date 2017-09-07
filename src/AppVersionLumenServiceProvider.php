@@ -18,7 +18,8 @@ class AppVersionLumenServiceProvider extends AbstractServiceProvider
 
     protected function registerRoute(array $config)
     {
-        $this->app->get($config['path'], [
+        $router = $this->app->router ?: $this->app;
+        $router->get($config['path'], [
             'middleware' => $config['middleware'],
             'uses'       => $config['uses'],
             'as'         => $config['name'],
