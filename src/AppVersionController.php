@@ -11,9 +11,11 @@ namespace HyanCat\AppVersion;
 
 use HyanCat\AppVersion\Exceptions\ValidateException;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Collection;
 
 final class AppVersionController extends Controller
 {
@@ -24,18 +26,28 @@ final class AppVersionController extends Controller
         $this->config = $config;
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     * @throws ValidateException
+     */
     public function version(Request $request)
     {
         $this->validate($request);
 
         $platform   = $request->get('platform');
+        $bundleID   = $request->get('bundle_id', '');
         $appVersion = $request->get('version');
 
-        $version = $this->_checkPlatformVersion($platform, $appVersion);
+        $version = $this->checkPlatformVersion($platform, $bundleID, $appVersion);
 
         return $version ?: Response::create(null, 204);
     }
 
+    /**
+     * @param Request $request
+     * @throws ValidateException
+     */
     private function validate(Request $request)
     {
         $validator = app('validator')->make($request->all(), [
@@ -47,22 +59,18 @@ final class AppVersionController extends Controller
         }
     }
 
-    private function _checkPlatformVersion($platform, $appVersion)
+    private function checkPlatformVersion(string $platform, string $bundleID, string $appVersion)
     {
         $model    = $this->config->get('appversion.model');
-        $versions = $model::where('platform', $platform)->get();
+        $versions = $model::where('platform', $platform)->where('bundle_id', $bundleID)->latest()->get();
 
-        return $this->_matchVersion($appVersion, $versions);
+        return $this->matchVersion($appVersion, $versions);
     }
 
-    private function _matchVersion($appVersion, $versions)
+    private function matchVersion(string $appVersion, Collection $compareVersions)
     {
-        foreach ($versions as $version) {
-            if (version_compare($appVersion, $version->version) < 0) {
-                return $version;
-            }
-        }
-
-        return null;
+        return $compareVersions->first(function ($v) use ($appVersion) {
+            return version_compare($appVersion, $v->version) < 0;
+        });
     }
 }
