@@ -17,7 +17,7 @@ class CreateAppVersionsTable extends Migration
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
-            $table->string('platform')->index();
+            $table->string('platform', 100)->index();
             $table->string('version', 100);
             $table->string('title', 100)->nullable();   // Update title.
             $table->text('detail');                     // Update note.

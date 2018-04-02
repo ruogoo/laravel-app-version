@@ -31,6 +31,8 @@ class AddBundleIdFieldToAppVersionsTable extends Migration
     {
         Schema::table($this->table, function (Blueprint $table) {
             $table->dropColumn('bundle_id');
+            $table->dropIndex(['platform', 'bundle_id']);
+            $table->index('platform');
         });
     }
 }
