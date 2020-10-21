@@ -11,10 +11,10 @@ return [
     'route' => [
         'name'        => 'app.version',
         'path'        => '/app/version',
-        'uses'        => \HyanCat\AppVersion\AppVersionController::class . '@version',
+        'uses'        => \Ruogoo\AppVersion\AppVersionController::class . '@version',
         'middleware' => [
             //
         ],
     ],
-    'model' => \HyanCat\AppVersion\Models\AppVersion::class,
+    'model' => \Ruogoo\AppVersion\Models\AppVersion::class,
 ];

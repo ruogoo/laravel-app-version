@@ -7,7 +7,7 @@
  * Copyright (C) HyanCat. All rights reserved.
  */
 
-namespace HyanCat\AppVersion;
+namespace Ruogoo\AppVersion;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -7,9 +7,9 @@
  * Copyright (C) HyanCat. All rights reserved.
  */
 
-namespace HyanCat\AppVersion;
+namespace Ruogoo\AppVersion;
 
-use HyanCat\AppVersion\Exceptions\ValidateException;
+use Ruogoo\AppVersion\Exceptions\ValidateException;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;

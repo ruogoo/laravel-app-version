@@ -7,13 +7,13 @@
  * Copyright (C) HyanCat. All rights reserved.
  */
 
-namespace HyanCat\AppVersion\Models;
+namespace Ruogoo\AppVersion\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class AppVersion
- * @namespace HyanCat\AppVersion\Models
+ * @namespace Ruogoo\AppVersion\Models
  * @property integer id
  * @property string  bundle_id
  * @property string  platform

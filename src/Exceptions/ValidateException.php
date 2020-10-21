@@ -7,7 +7,7 @@
  * Copyright (C) HyanCat. All rights reserved.
  */
 
-namespace HyanCat\AppVersion\Exceptions;
+namespace Ruogoo\AppVersion\Exceptions;
 
 class ValidateException extends \Exception
 {
