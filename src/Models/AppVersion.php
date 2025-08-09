@@ -29,5 +29,7 @@ class AppVersion extends Model
     protected $guarded = [];
     protected $hidden  = ['id', 'bundle_id', 'platform', 'created_at', 'updated_at'];
 
-    protected $casts = ['options'];
+    protected $casts = [
+        'options' => 'array',
+    ];
 }

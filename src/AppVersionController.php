@@ -41,7 +41,7 @@ final class AppVersionController extends Controller
 
         $version = $this->checkPlatformVersion($platform, $bundleID, $appVersion);
 
-        return $version ?: Response::create(null, 204);
+        return $version ?: response()->noContent();
     }
 
     /**
